@@ -23,15 +23,18 @@ final class IOSPerfHelper
       count >= TASK_VM_INFO_REV1_COUNT
     else { return nil }
 
-    let usedBytes = Float(info.phys_footprint)
-    return Int(usedBytes)
+    let usedMBytes = Float(info.phys_footprint) / Float(1048576)
+    return Int(usedMBytes)
   }
 }
 
 @_cdecl("GetMemoryFootPrintSwift")
-func GetMemoryFootPrint() -> Int? {
-    
-    print(" =========GetMemoryFootPrint======== " )
-    return IOSPerfHelper.GetMemoryFootPrint()
+func GetMemoryFootPrint() -> Int {
+
+    let a ： Int? = IOSPerfHelper.GetMemoryFootPrint()
+    let aval = String(a!);
+    print(" =========GetMemoryFootPrint======(mb)== " + aval)
+    return a!;
+
 }
 

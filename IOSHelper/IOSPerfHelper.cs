@@ -1,7 +1,8 @@
 #if UNITY_IOS && !UNITY_EDITOR
 #define IOS_ONLY
-#endif
 using System.Runtime.InteropServices;
+#endif
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,11 +20,16 @@ public class IOSPerfHelper : MonoBehaviour
     {   
 
 #if IOS_ONLY
-                [DllImport("__Internal", EntryPoint = "GetMemoryFootPrintSwift")]
-                static extern int CallNativeMethod();
 
                 var memfoot =CallNativeMethod();
+                // log
 #endif
     }
+
+    
+#if IOS_ONLY
+                [DllImport("__Internal", EntryPoint = "GetMemoryFootPrintSwift")]
+                static extern int CallNativeMethod();
+#endif
 
 }
