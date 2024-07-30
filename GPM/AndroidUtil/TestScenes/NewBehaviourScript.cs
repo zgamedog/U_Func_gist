@@ -18,5 +18,17 @@ public class NewBehaviourScript : MonoBehaviour
         AndroidChipInfo ac = new AndroidChipInfo();
         var a = ac.GetBoardChipName();
         texxx.text = a;
-    }   
+    }
+
+    public void AdroidMem()
+    {   
+        AndroidMem _am = new AndroidMem();
+        var a = AndroidMem.nativeTotal;
+        texxx.text = a.ToString();
+    }
+
+    public void AdroidMemInfo()
+    {   
+        var a = AndroidMem.getMem();
+    }
 }
