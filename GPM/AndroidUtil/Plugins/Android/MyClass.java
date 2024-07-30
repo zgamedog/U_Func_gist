@@ -20,40 +20,47 @@ public class MyClass extends UnityPlayerActivity {
         Debug.getMemoryInfo(dbm);
 //kb 
 //summary.total-pss
-//summary.graphics
 //summary.native-heap
+//pirvateOhter
+//summary.graphics
 //summary.code
 
         String ret ="";
         
-        int nativePss = dbm.nativePss;
-        ret += "dbm.nativePss "+ nativePss +" ";
+        // int nativePss = dbm.nativePss;
+        // ret += "dbm.nativePss "+ nativePss +" ";
 
-        int pOther = dbm.otherPrivateDirty;
+
         //ret += "dbm.otherPrivateDirty "+ pOther +" ";
 
-        int OOther = dbm.otherPss;
         //ret += "dbm.otherPss "+ pOther +" ";
-
-        int pirvateOhter = OOther - pOther;
-        ret += "pirvateOhter "+ pirvateOhter +" ";
+        
+   
+  
         //pOther = dbm.otherSharedDirty;
         //ret += "dbm.otherSharedDirty "+ pOther +" ";
 
         String tmp ="";
 
-        tmp = dbm.getMemoryStat( "summary.total-pss" );
-        ret += " total-pss "+tmp +" ";
+        String pss = dbm.getMemoryStat( "summary.total-pss" );
+        //ret += " total-pss "+pss +" ";
+        ret += pss+"|";
+        String nativeHeap = dbm.getMemoryStat( "summary.native-heap" );
+        //ret += " native-heap "+nativeHeap +" ";
+        ret += nativeHeap+"|";
+        int pOther = dbm.otherPrivateDirty;   
+        int OOther = dbm.otherPss;
+        int pirvateOhter = OOther - pOther;  // pirvateOhter 
+        ret += pirvateOhter+"|";
+        //ret += "pirvateOhter "+ pirvateOhter +" ";
 
-        tmp = dbm.getMemoryStat( "summary.native-heap" );
-        ret += " native-heap "+tmp +" ";
-
-        tmp = dbm.getMemoryStat( "summary.graphics" );
-        ret += " summary.graphics "+tmp +" ";
-
-        tmp = dbm.getMemoryStat( "summary.code" );
-        ret += " summary.code "+tmp +" ";
-
+        String graphics = dbm.getMemoryStat( "summary.graphics" );
+        //ret += " summary.graphics "+tmp +" ";
+        ret += graphics+"|";
+        String code = dbm.getMemoryStat( "summary.code" );
+        //ret += " summary.code "+tmp +" ";
+        ret += code+"|";
+        
         return ret;
     }   
 }

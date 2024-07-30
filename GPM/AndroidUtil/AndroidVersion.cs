@@ -14,14 +14,29 @@ public class AndroidMem
     public struct AMem 
     {   
         public int Pss;
-        public int Rss;
         public int Native;
-        
-    }
+        public int PrivateOther;
+        public int Graphics;
+        public int Code;
+
+    }   
 
     public AndroidMem()
     {   
         AndroidMem.m_androidMem = new AndroidJavaClass("android.os.Debug");
+    }
+
+    static string[] m_SplitData;
+    static AMem SplitData(string value) 
+    {   
+        m_SplitData =value.Split('|');
+        AMem _memData = default;
+        int.TryParse(m_SplitData[0],out _memData.Pss);
+        int.TryParse(m_SplitData[1], out _memData.Native);
+        int.TryParse(m_SplitData[2], out _memData.PrivateOther);
+        int.TryParse(m_SplitData[3], out _memData.Graphics);
+        int.TryParse(m_SplitData[4], out _memData.Code);
+        return _memData;
     }   
 
     public static string getMem()   
@@ -29,16 +44,19 @@ public class AndroidMem
         AndroidJavaClass myClass = new AndroidJavaClass("com.DefaultCompany.NewUnityProject.MyClass");
         Debug.LogError("myClass myClass " + myClass);
         var ss = myClass.CallStatic<string>("testMethod", new object[] { "--------------Test" });
-        Debug.LogError("ss ss " + ss);
+        Debug.LogError( ss);
+
+        var a = SplitData(ss);
+        Debug.LogError("SplitData "+ a.Pss +" " + a.PrivateOther +" " + a.Graphics);
         return string.Empty;
-        m_androidMemInfo = m_androidMem.Call<AndroidJavaObject>("MemoryInfo");
-        Debug.LogError("m_androidMemInfo " + m_androidMemInfo);
+        //m_androidMemInfo = m_androidMem.Call<AndroidJavaObject>("MemoryInfo");
+        //Debug.LogError("m_androidMemInfo " + m_androidMemInfo);
 
-        var a = m_androidMem.Call<string>("getMemoryStat",new object[] { "summary.graphics" } );
+        //var a = m_androidMem.Call<string>("getMemoryStat",new object[] { "summary.graphics" } );
 
-        Debug.LogError("summary graphics kb " + a);
+        //Debug.LogError("summary graphics kb " + a);
 
-        return string.Empty;
+        //return string.Empty;
     }
 
     public static long nativeTotal
